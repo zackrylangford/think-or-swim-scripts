@@ -1,8 +1,9 @@
 # Camarilla Pivot Points for Thinkorswim
-# Calculate previous day's high, low, and close prices
-def prevHigh = high(period = "Day")[1];
-def prevLow = low(period = "Day")[1];
-def prevClose = close(period = "Day")[1];
+
+# Calculate previous day's high, low, and close prices using daily aggregation
+def prevHigh = high(period = AggregationPeriod.DAY)[1];
+def prevLow = low(period = AggregationPeriod.DAY)[1];
+def prevClose = close(period = AggregationPeriod.DAY)[1];
 
 # Calculate Camarilla Pivot Points
 def pivotPoint = (prevHigh + prevLow + prevClose) / 3;
@@ -20,7 +21,7 @@ def s4 = prevClose - (prevHigh - prevLow) * 1.1 / 2;
 def breakoutTarget = prevClose + (prevHigh - prevLow) * 1.1;
 def breakdownTarget = prevClose - (prevHigh - prevLow) * 1.1;
 
-# Plot Camarilla Pivot Points as horizontal lines with shorter dashed style
+# Plot Camarilla Pivot Points as horizontal lines
 plot pivotPointLine = if !IsNaN(pivotPoint) then pivotPoint else Double.NaN;
 plot resistance4 = if !IsNaN(r4) then r4 else Double.NaN;
 plot resistance3 = if !IsNaN(r3) then r3 else Double.NaN;
@@ -87,26 +88,26 @@ breakdownTargetLine.SetLineWeight(1);
 
 # Add bubbles to the lines on the price axis once per day
 AddChartBubble(SecondsFromTime(0630) == 0, pivotPoint, "PP", Color.LIGHT_GRAY, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, r4, "R4", Color.RED, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, r3, "R3", Color.RED, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, r2, "R2", Color.RED, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, r1, "R1", Color.RED, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, s1, "S1", Color.GREEN, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, s2, "S2", Color.GREEN, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, s3, "S3", Color.GREEN, yes);
-AddChartBubble(SecondsFromTime(0630) == 0, s4, "S4", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, r4, "R4", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, r3, "R3", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, r2, "R2", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, r1, "R1", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, s1, "S1", Color.RED, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, s2, "S2", Color.RED, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, s3, "S3", Color.RED, yes);
+AddChartBubble(SecondsFromTime(0630) == 0, s4, "S4", Color.RED, yes);
 AddChartBubble(SecondsFromTime(0630) == 0, breakoutTarget, "BT", Color.MAGENTA, yes);
 AddChartBubble(SecondsFromTime(0630) == 0, breakdownTarget, "BD", Color.MAGENTA, yes);
 
 # Add additional bubbles to the lines in the middle of the day
 AddChartBubble(SecondsFromTime(1800) == 0, pivotPoint, "PP", Color.LIGHT_GRAY, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, r4, "R4", Color.RED, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, r3, "R3", Color.RED, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, r2, "R2", Color.RED, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, r1, "R1", Color.RED, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, s1, "S1", Color.GREEN, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, s2, "S2", Color.GREEN, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, s3, "S3", Color.GREEN, yes);
-AddChartBubble(SecondsFromTime(1800) == 0, s4, "S4", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, r4, "R4", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, r3, "R3", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, r2, "R2", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, r1, "R1", Color.GREEN, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, s1, "S1", Color.RED, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, s2, "S2", Color.RED, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, s3, "S3", Color.RED, yes);
+AddChartBubble(SecondsFromTime(1800) == 0, s4, "S4", Color.RED, yes);
 AddChartBubble(SecondsFromTime(1800) == 0, breakoutTarget, "BT", Color.MAGENTA, yes);
 AddChartBubble(SecondsFromTime(1800) == 0, breakdownTarget, "BD", Color.MAGENTA, yes);
